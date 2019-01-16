@@ -255,7 +255,7 @@ python toaster_buildhistory_dump() {
     BUILDHISTORY_DIR = e.data.expand("${TOPDIR}/buildhistory")
     BUILDHISTORY_DIR_IMAGE_BASE = e.data.expand("%s/images/${MACHINE_ARCH}/${TCLIBC}/"% BUILDHISTORY_DIR)
     pkgdata_dir = e.data.getVar("PKGDATA_DIR")
-
+    image_defaultpkgname_basename = e.data.getVar("IMAGE_BASENAME")
 
     # scan the build targets for this build
     images = {}
@@ -263,7 +263,8 @@ python toaster_buildhistory_dump() {
     files = {}
     for target in e._pkgs:
         target = target.split(':')[0] # strip ':<task>' suffix from the target
-        installed_img_path = e.data.expand(os.path.join(BUILDHISTORY_DIR_IMAGE_BASE, target))
+        image_basename = re.sub(r'^defaultpkgname', target, image_defaultpkgname_basename)
+        installed_img_path = e.data.expand(os.path.join(BUILDHISTORY_DIR_IMAGE_BASE, image_basename))
         if os.path.exists(installed_img_path):
             images[target] = {}
             files[target] = {}
