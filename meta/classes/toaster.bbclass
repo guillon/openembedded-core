@@ -350,9 +350,9 @@ python toaster_artifacts() {
             d2.setVar('SSTATE_MANMACH', extrainf)
         else:
             if "do_populate_sdk" == e.taskname:
-                d2.setVar('SSTATE_MANMACH', d2.expand("${MACHINE}${SDKMACHINE}"))
+                d2.setVar('SSTATE_MANMACH', d2.expand("${MACHINE_ARCH}${SDKMACHINE}"))
             else:
-                d2.setVar('SSTATE_MANMACH', d2.expand("${MACHINE}"))
+                d2.setVar('SSTATE_MANMACH', d2.expand("${MACHINE_ARCH}"))
         manifest = oe.sstatesig.sstate_get_manifest_filename(e.taskname[3:], d2)[0]
 
         if os.access(manifest, os.R_OK):
