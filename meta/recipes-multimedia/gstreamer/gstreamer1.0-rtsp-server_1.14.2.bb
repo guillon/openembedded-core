@@ -33,3 +33,6 @@ delete_pkg_m4_file() {
 }
 
 do_configure[prefuncs] += " delete_pkg_m4_file"
+
+PACKAGES_DYNAMIC = "^${PN}-.*"
+PACKAGES += "libgstrtspserver-1.0"
