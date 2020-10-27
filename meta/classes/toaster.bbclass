@@ -311,8 +311,10 @@ python toaster_buildhistory_dump() {
             if os.path.exists(files_in_image_path):
                 with open(files_in_image_path, "r") as fin:
                     for line in fin:
-                        lc = [ x for x in line.strip().split(" ") if len(x) > 0 ]
+                        lc = line.strip().split(maxsplit=4)
                         if lc[0].startswith("l"):
+                            s, d = lc[4].split(" -> ", maxsplit=1)
+                            lc = lc[:4] + [ s, "->", d ]
                             files[target]['syms'].append(lc)
                         elif lc[0].startswith("d"):
                             files[target]['dirs'].append(lc)
